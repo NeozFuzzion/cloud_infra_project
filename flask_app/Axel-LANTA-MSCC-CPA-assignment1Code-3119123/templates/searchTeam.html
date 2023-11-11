@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WiKimiF1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="{{ url_for('static', filename='style.css') }}">
+        <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+        <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+        <script src="{{ url_for('static', filename='app-setup.js') }}"></script>
+    </head>
+    <body>
+        <div id="login_ui" hidden>
+            <div id="firebase-auth-container"></div>
+        </div>
+        <div id="container">
+            <a href="/" style="text-decoration: none;color: black;" id="namesite">
+                WiKimiF1
+            </a>
+            <div class="menubar">
+                {% if connected %}
+                    <div>
+                        <a href="/creator_driver" class="menubar_btn">
+                            Add a driver
+                        </a>
+                    </div>
+                    <div>
+                        <a href="/creator_team" class="menubar_btn">
+                            Add a team
+                        </a>
+                    </div>
+                {% endif %}
+                <div>
+                    <a href="/search_driver" class="menubar_btn">
+                        Search driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/search_team" class="actual">
+                        Search team
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_driver" class="menubar_btn">
+                        Compare driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_team" class="menubar_btn">
+                        Compare team
+                    </a>
+                </div>
+            </div>
+            <button id="login" hidden="true" class='login-button'>Login</button>
+            <button id="sign-out" hidden="true" class="sign-out-button">Sign out</button>
+            {% if error_message %}
+                <div><pre class="error_message">{{error_message}}</pre></div>
+            {% elif success_message %}
+                <div><pre class="success_message">{{success_message}}</pre></div>
+            {%endif%}
+            <div id="team-form">
+                <div id="namepage">
+                    Search a Team
+                </div>
+                <form action="/search_team" method="post">
+                    <select name="attribute" required>
+                        <option value="" selected disabled>
+                            Select an attribute
+                        </option>
+                        <option value="1">
+                            Name
+                        </option>
+                        <option value="2">
+                            Year founded
+                        </option>
+                        <option value="3">
+                            Total Pole Positions
+                        </option>
+                        <option value="4">
+                            Total Race wins
+                        </option>
+                        <option value="5">
+                            Last Finishing position
+                        </option>
+                        <option value="6">
+                            Total Constructors titles
+                        </option>
+                        <option value="7">
+                            Total Fastest Laps
+                        </option>
+                        <option value="8">
+                            Team
+                        </option>
+                    </select>
+                    <select name="operation" required>
+                        <option value="1">
+                            =
+                        </option>
+                        <option value="2">
+                            >
+                        </option>
+                        <option value="3">
+                            <
+                        </option>
+                        <option value="4" selected>
+                            ≥
+                        </option>
+                        <option value="5">
+                            ≤
+                        </option>
+                        <option value="6">
+                            ≠
+                        </option>
+                    </select>
+                    <input type="text" name="searching" required>
+                    <input type="submit" value="Search" name="submit_button">
+                </form>
+            </div>
+            {% if searching_result %}
+                <div id="search_result">
+                    {% for team in searching_result %}
+                        <a href={{"/team/"~team['TeamID'] }}>
+                            <div class="team_result"><img src="{{ url_for('static', filename='car.png') }}" width="50px">{{ team['Name'] }}</div>
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            {% if searching_result==[] %}
+                <div id="search_result">
+                    No result found
+                </div>
+            {% endif %}
+        </div>
+    </body>
+    <footer>
+        {% if connected %}
+            <p>Thanks for being part of the team</p>
+        {% else %}
+            <p>Log on and help WiKimiF1 to get more information</p>
+        {% endif %}
+    </footer>
+</html>

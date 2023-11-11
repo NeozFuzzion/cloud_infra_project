@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WiKimiF1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="{{ url_for('static', filename='style.css') }}">
+        <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+        <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+        <script src="{{ url_for('static', filename='app-setup.js') }}"></script>
+    </head>
+    <body>
+        <div id="login_ui" hidden>
+            <div id="firebase-auth-container"></div>
+        </div>
+        <div id="container">
+            <a href="/" style="text-decoration: none;color: black;" id="namesite">
+                WiKimiF1
+            </a>
+            <div class="menubar">
+                {% if connected %}
+                <div>
+                    <a href="/creator_driver" class="menubar_btn">
+                        Add a driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/creator_team" class="menubar_btn">
+                        Add a team
+                    </a>
+                </div>
+                {% endif %}
+                <div>
+                    <a href="/search_driver" class="menubar_btn">
+                        Search driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/search_team" class="menubar_btn">
+                        Search team
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_driver" class="menubar_btn">
+                        Compare driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_team" class="menubar_btn">
+                        Compare team
+                    </a>
+                </div>
+            </div>
+            <button id="login" hidden="true" class='login-button'>Login</button>
+            <button id="sign-out" hidden="true" class="sign-out-button">Sign out</button>
+                {% if update_msg %}
+                    <span id="msgupdate">{{ update_msg }}</span>
+                {% endif %}
+            <div id="driver-info">
+                <div id="namepage">
+                    Driver Info
+                </div>
+                {% if connected %}
+                    <div class="row_div" style="all: unset;display: flex;width: 100%;justify-content: space-between;">
+                        <a href={{ driver_edit }}> Edit </a>
+                        <form action="/erase_driver" method="post">
+                            <input type="number" name="id" value={{ driver_info['DriverID'] }} hidden>
+                            <input type="submit" value="Delete" name="submit_button">
+                        </form>
+                    </div>
+                {% endif %}
+                <div id="driver_name" class="row_div">
+                    <div class="type_row">Name</div>
+                    <div id="driver_name_value" class="value_row">{{ driver_info['Name'] }}</div>
+                </div>
+                <div id="driver_age" class="row_div">
+                    <div class="type_row">Age</div>
+                    <div id="driver_age_value" class="value_row">{{ driver_info['Age'] }}</div>
+                </div>
+                <div id="driver_pole" class="row_div">
+                    <div class="type_row">Total Pole Positions</div>
+                    <div id="driver_pole_value" class="value_row">{{ driver_info['Total_Pole_Positions'] }}</div>
+                </div>
+                <div id="driver_wins" class="row_div">
+                    <div class="type_row">Total Race wins</div>
+                    <div id="driver_wins_value" class="value_row">{{ driver_info['Total_Race_Wins'] }}</div>
+                </div>
+                <div id="driver_points" class="row_div">
+                    <div class="type_row">Total points scored</div>
+                    <div id="driver_points_value" class="value_row">{{ driver_info['Total_Points_Scored'] }}</div>
+                </div>
+                <div id="driver_wt" class="row_div">
+                    <div class="type_row">Total world titles</div>
+                    <div id="driver_wt_value" class="value_row">{{ driver_info['Total_World_Titles'] }}</div>
+                </div>
+                <div id="driver_fastest" class="row_div">
+                    <div class="type_row">Total Fastest Laps</div>
+                    <div id="driver_fastest_value" class="value_row">{{ driver_info['Total_Fastest_Laps'] }}</div>
+                </div>
+                <div id="driver_team" class="row_div">
+                    <div class="type_row">Team</div>
+                    <a href={{"/team/" ~ driver_info['Team_id'] }} style="width:fit-content">
+                        <div id="driver_team_value"  class="value_row" >
+                            {{ driver_info['Team_name'] }}
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </body>
+    <footer>
+        {% if connected %}
+            <p>Thanks for being part of the team</p>
+        {% else %}
+            <p>Log on and help WiKimiF1 to get more information</p>
+        {% endif %}
+    </footer>
+</html>

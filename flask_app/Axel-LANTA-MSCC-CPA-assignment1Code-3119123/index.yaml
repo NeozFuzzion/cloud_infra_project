@@ -1,0 +1,22 @@
+indexes:
+- kind: Drivers
+  properties:
+  - name: Name
+  - name: Age
+  - name: Total_Pole_Positions
+  - name: Total_Race_wins
+  - name: Total_points_scored
+  - name: Total_world_titles
+  - name: Total_Fastest_Laps
+  - name: Teams_name
+  - name: Teams
+
+- kind: Teams
+  properties:
+  - name: Name
+  - name: Year_founded
+  - name: Total_Pole_Positions
+  - name: Total_Race_wins
+  - name: Last_Finishing_position
+  - name: Total_Constructors_titles
+  - name: Total_Fastest_Laps

@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WiKimiF1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="{{ url_for('static', filename='style.css') }}">
+        <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+        <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+        <script src="{{ url_for('static', filename='app-setup.js') }}"></script>
+    </head>
+    <body>
+        <div id="login_ui" hidden>
+            <div id="firebase-auth-container"></div>
+        </div>
+        
+        <div id="container">
+            <a href="/" style="text-decoration: none;color: black;" id="namesite">
+                WiKimiF1
+            </a>
+            <div class="menubar">
+                {% if connected %}
+                <div>
+                    <a href="/creator_driver" class="menubar_btn">
+                        Add a driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/creator_team" class="menubar_btn">
+                        Add a team
+                    </a>
+                </div>
+                {% endif %}
+                <div>
+                    <a href="/search_driver" class="menubar_btn">
+                        Search driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/search_team" class="menubar_btn">
+                        Search team
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_driver" class="menubar_btn">
+                        Compare driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_team" class="actual">
+                        Compare team
+                    </a>
+                </div>
+            </div>
+            <button id="login" hidden="true" class='login-button'>Login</button>
+            <button id="sign-out" hidden="true" class="sign-out-button">Sign out</button>
+            {% if error_message %}
+                <div><pre class="error_message">{{error_message}}</pre></div>
+            {%endif%}
+            <div id="team-form">
+                <div id="namepage">
+                    Team Versus
+                </div>
+                <form action="/versus_team" method="post">
+                    <select name="Team_id1" required>
+                        <option value="" selected disabled hidden>
+                            Select A Team
+                        </option>
+                        {% for e in teams_data %}
+                            <option value={{ e[0] }}>{{ e[1] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <select name="Team_id2" required>
+                        <option value="" selected disabled hidden>
+                            Select A Team
+                        </option>
+                        {% for e in teams_data %}
+                            <option value={{ e[0] }}>{{ e[1] }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <input type="submit" value="Compare" name="submit_button">
+                </form>
+            </div>
+            {% if compare_result %}
+                <div class="result_compare">
+                    <table class="table_compare">
+                        <thead>
+                            <th>
+                            </th>
+                            <th>
+                                <a href={{"/team/"~team1['TeamID'] }}>
+                                    <div>{{ team1['Name'] }}</div>
+                                </a>
+                            </th>
+                            <th>
+                                <a href={{"/team/"~team2['TeamID'] }}>
+                                    <div>{{ team2['Name'] }}</div>
+                                </a>
+                            </th>
+                        </thead>
+                        {% for key in compare_result %}
+                            {% if key != 'TeamID' %}
+                                <tr class={{"compare_result"~compare_result[key] }}>
+                                    <td class="compare_name">{{ key|replace('_', ' ') }}</td>
+                                    <td><a class="value1">{{ team1[key] }}</a></td>
+                                    <td><a class="value2">{{ team2[key] }}</a></td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </table>
+                </div>
+            {% endif %}
+            <script>
+        $('select').on('change', function() {
+          $('option').prop('disabled', false); //reset all the disabled options on every change event
+          $('select').each(function() { //loop through all the select elements
+            var val = this.value;
+            $('select').not(this).find('option').filter(function() { //filter option elements having value as selected option
+              return this.value === val;
+            }).prop('disabled', true); //disable those option elements
+          });
+        }).change();
+            </script>
+        </div>
+    </body>
+    <footer>
+        {% if connected %}
+            <p>Thanks for being part of the team</p>
+        {% else %}
+            <p>Log on and help WiKimiF1 to get more information</p>
+        {% endif %}
+    </footer>
+</html>

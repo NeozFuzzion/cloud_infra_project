@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+    <head>
+        <title>WiKimiF1</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="{{ url_for('static', filename='style.css') }}">
+        <script src="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.js"></script>
+        <link type="text/css"
+              rel="stylesheet"
+              href="https://www.gstatic.com/firebasejs/ui/4.4.0/firebase-ui-auth.css"/>
+        <script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.8.0/firebase-auth.js"></script>
+        <script src="{{ url_for('static', filename='app-setup.js') }}"></script>
+    </head>
+    <body>
+        <div id="login_ui" hidden>
+            <div id="firebase-auth-container"></div>
+        </div>
+        <div id="container">
+            <a href="/" style="text-decoration: none;color: black;" id="namesite">
+                WiKimiF1
+            </a>
+            <div class="menubar">
+                {% if connected %}
+                <div>
+                    <a href="/creator_driver" class="menubar_btn">
+                        Add a driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/creator_team" class="actual">
+                        Add a team
+                    </a>
+                </div>
+                {% endif %}
+                <div>
+                    <a href="/search_driver" class="menubar_btn">
+                        Search driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/search_team" class="menubar_btn">
+                        Search team
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_driver" class="menubar_btn">
+                        Compare driver
+                    </a>
+                </div>
+                <div>
+                    <a href="/versus_team" class="menubar_btn">
+                        Compare team
+                    </a>
+                </div>
+            </div>
+            <button id="login" hidden="true" class='login-button'>Login</button>
+            <button id="sign-out" hidden="true" class="sign-out-button">Sign out</button>
+            {% if error_message %}
+                <div><pre class="error_message">{{error_message}}</pre></div>
+            {% elif success_message %}
+                <div><pre class="success_message">{{success_message}}</pre></div>
+            {%endif%}
+            <div id="driver-form">
+                <div id="namepage">
+                    Create a Team
+                </div>
+                <form action="/create_team" method="post">
+                    <div class="form_row">
+                        <p> Name:</p>
+                        <input type="text" value="" name="Name" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Year founded :</p>
+                        <input type="number" value="" name="Year_Founded" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Total Pole Positions :</p>
+                        <input type="number" value="" name="Total_Pole_Positions" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Total Race wins :</p>
+                        <input type="number" value="" name="Total_Race_Wins" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Last Finishing position :</p>
+                        <input type="number" value="" name="Last_Finishing_Position" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Total Constructors titles :</p>
+                        <input type="number" value="" name="Total_Constructors_Titles" required>
+                    </div>
+                    <div class="form_row">
+                        <p>Total Fastest Laps :</p>
+                        <input type="number" value="" name="Total_Fastest_Laps" required>
+                    </div>
+                    <div class="form_submit">
+                        <input type="submit" value="Create" name="submit_button">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    <footer>
+        {% if connected %}
+            <p>Thanks for being part of the team</p>
+        {% else %}
+            <p>Log on and help WiKimiF1 to get more information</p>
+        {% endif %}
+    </footer>
+</html>

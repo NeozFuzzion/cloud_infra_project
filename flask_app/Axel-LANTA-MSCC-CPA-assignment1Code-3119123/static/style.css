@@ -1,0 +1,332 @@
+body {
+  font-family: "helvetica", sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom right, rgb(253, 253, 253), rgb(31, 26, 26));
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
+.compare_result1 .value1, .compare_result2 .value2 {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  background-color: green;
+  color: aliceblue;
+}
+
+.compare_result0 .value1, .compare_result0 .value2 {
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 5px;
+  background-color: rgb(99, 72, 253);
+  color: aliceblue;
+}
+
+.indexmenu{
+  display:flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.indexsubmenu{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.btnmenu{
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.btnmenu:hover{
+  background-color: darkgray;
+}
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+#login_ui{
+  width: 100%;
+  height: 100%;
+  margin: 0em;
+  left: 0em;
+  padding-top: 25px;
+  position: fixed;
+  backdrop-filter: blur(2px);
+}
+
+
+#firebase-auth-container{
+  display:contents;
+}
+
+#team-form, #driver-form{
+  border: solid 5px black;
+  margin-top: 100px;
+  padding: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  border-radius: 20px;
+  background-color: aliceblue;
+}
+
+#container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+button{
+  border: solid 1px black;
+  border-radius: 5px;
+  background-color: black;
+  color: antiquewhite;
+}
+
+.login-button, .sign-out-button{
+  width: 80px;
+  height: 25px;
+  font-size: 15px;
+  margin: 10px;
+  position: absolute;
+  right: 0;
+  top: 0; margin: 10px;
+}
+
+.driver_result, .team_result{
+  width: 100px;
+  height: 100px;
+  border: solid 1px black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  margin: 10px;
+}
+
+#search_result{
+  display: flex;
+    border: solid 5px black;
+    margin-top: 10px;
+    padding: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    background-color: aliceblue;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 800px;
+}
+
+.table_compare{
+  width: 800px;
+  margin-top: 20px;
+  /* min-width: 300px; */
+  border: solid 5px black;
+  border-radius: 20px;
+  border-spacing: 0;
+  background-color: aliceblue;
+}
+
+.table_compare th:not(:last-child),
+.table_compare td:not(:last-child) {
+  border-right: 1px solid black;
+}
+
+.table_compare>thead>tr>th,
+.table_compare>tbody>tr:not(:last-child)>td{
+  border-bottom: 1px solid black;
+}
+
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 15px;
+}
+  
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 15px;
+}
+
+.table_compare thead {
+  border: solid 1px black;
+}
+
+.value1, .value2 {
+    width:150px;
+}
+
+.compare_name{
+  width:200px;
+}
+
+.row_div{
+  display:flex;
+  justify-content: space-evenly;
+  margin: 5px;
+}
+
+#driver-info, #team-info{
+  display: flex;
+    border: solid 5px black;
+    margin-top: 10px;
+    padding: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px;
+    background-color: aliceblue;
+    flex-direction: column;
+    flex-wrap: wrap;
+    min-width: 245px;
+    max-width: 800px;
+    align-items: flex-start;
+}
+
+.menubar_btn {
+  border: solid 1px black;
+  border-radius: 5px;
+  background-color: black;
+  color: antiquewhite;
+  height: 23px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 5px;
+}
+
+
+
+.menubar{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#namesite{
+  text-decoration: none;
+  position: absolute;
+  color: black;
+  left: 10px;
+  top: 5px;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#namepage{
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+
+footer{
+  position: fixed;
+  bottom: 0;
+  left: 0; 
+  right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  background-image: url('/static/wallpaperfooter.jpg');
+  color: aliceblue;
+}
+
+.actual{
+  border: solid 1px black;
+  border-radius: 5px;
+  background-color: rgb(32, 3, 85);
+  color: antiquewhite;
+  height: 23px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  padding: 5px;
+}
+
+.menubar_btn:hover, .actual:hover{
+  background-color: rgb(83, 1, 1);
+}
+
+.type_row{    
+  display: flex;
+  justify-content: flex-start;
+  width: 200px;
+}
+
+.value_row{    
+  display: flex;
+  min-width: 50px;
+  
+  justify-content: center;
+
+}
+
+.form_row{
+  display: flex;
+  justify-content: space-between;
+}
+
+.form_row p{
+  margin:5px;
+}
+
+.form_submit{
+  margin-top:5px;
+}
+
+input[type=submit],.row_div a{
+  border: solid 1px black;
+  border-radius: 5px;
+  background-color: black;
+  color: antiquewhite;
+  font-size: 15px;
+  align-items: center;
+}
+.row_div a{
+  padding: 1px 6px;
+}
+
+input[type=submit]:hover, .sign-out-button:hover, .login-button:hover,.row_div a:hover{
+  background-color: rgb(83, 1, 1);
+  cursor: pointer;
+}
+
+.team_result:hover,.driver_result:hover{
+  border: solid 3px rgb(83, 1, 1);
+  margin: 45x;
+}
+
+#driver_team a {
+  all: unset;
+  background: none;
+  color:black;
+  
+}
+#driver_team a :hover {
+  border-radius: 5px;
+  background-color: black;
+  color: antiquewhite;
+  cursor: pointer;
+}
+
+.success_message,#msgupdate{
+  color: #147e35;
+}
+.error_message{
+  color: #b93131;
+}
