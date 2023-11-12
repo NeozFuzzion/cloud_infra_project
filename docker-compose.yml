@@ -44,7 +44,7 @@ services:
       - mysql
     networks:
       - my_network
-
+  # Website accessible at address : localhost:80
   nginx_load_balancer:
     image: nginx:latest
     ports:
@@ -57,6 +57,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
 
+  #Work environment accessible at address 0.0.0.0:5005 not linked to the load balancer to work there
   flask_app_work_env:
     build:
       context: ./flask_app
@@ -72,7 +73,8 @@ services:
       - mysql
     networks:
       - my_network
-    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
+  # When modify with an error python flask shutdown due to my dockerfile the container shut dow so I restart will docker-compose is up
+    restart: "${DOCKER_RESTART_POLICY:-unless-stopped}" 
     volumes:
       - ./flask_app/Axel-LANTA-MSCC-CPA-assignment1Code-3119123:/app
 
